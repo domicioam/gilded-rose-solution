@@ -57,12 +57,21 @@ class GildedRoseTest {
     }
     
     @Test
+    void shouldQualityAlwaysBeEightyWhenSulfuras() {
+    	Item item = new Item("Sulfuras, Hand of Ragnaros", 1, 50);
+    	QualityUpdatable[] items = { new Sulfuras(item) };
+    	GildedRose gildedRose = new GildedRose(items);
+    	gildedRose.updateQuality();
+    	assertEquals(80, item.quality);
+    }
+    
+    @Test
     void shouldNotDecreaseQualityOrSellInWhenSulfuras() {
     	Item item = new Item("Sulfuras, Hand of Ragnaros", 1, 50);
     	QualityUpdatable[] items = { new Sulfuras(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
-    	assertEquals(50, item.quality);
+    	assertEquals(80, item.quality);
     	assertEquals(1, item.sellIn);
     }
     
@@ -122,7 +131,7 @@ class GildedRoseTest {
     	QualityUpdatable[] items = { new Sulfuras(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
-    	assertEquals(50, item.quality);
+    	assertEquals(80, item.quality);
     	assertEquals(-1, item.sellIn);
     }
     
@@ -134,6 +143,36 @@ class GildedRoseTest {
     	gildedRose.updateQuality();
     	assertEquals(50, item.quality);
     	assertEquals(-2, item.sellIn);
+    }
+    
+    @Test
+    void shouldDegradeQualityTwiceWhenConjuredItem() {
+    	Item item = new Item("Conjured", 20, 50);
+    	QualityUpdatable[] items = { new Conjured(item) };
+    	GildedRose gildedRose = new GildedRose(items);
+    	gildedRose.updateQuality();
+    	assertEquals(48, item.quality);
+    	assertEquals(19, item.sellIn);
+    }
+    
+    @Test
+    void shouldNotDegradeQualityBelowZeroWhenConjuredItem() {
+    	Item item = new Item("Conjured", 20, 0);
+    	QualityUpdatable[] items = { new Conjured(item) };
+    	GildedRose gildedRose = new GildedRose(items);
+    	gildedRose.updateQuality();
+    	assertEquals(0, item.quality);
+    	assertEquals(19, item.sellIn);
+    }
+    
+    @Test
+    void shouldNotDegradeQualityBelowZeroWhenConjuredItemAndQualityEqualsToOne() {
+    	Item item = new Item("Conjured", 20, 1);
+    	QualityUpdatable[] items = { new Conjured(item) };
+    	GildedRose gildedRose = new GildedRose(items);
+    	gildedRose.updateQuality();
+    	assertEquals(0, item.quality);
+    	assertEquals(19, item.sellIn);
     }
 
 }

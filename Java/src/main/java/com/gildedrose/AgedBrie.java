@@ -1,13 +1,12 @@
 package com.gildedrose;
 
-public class AgedBrie {
-
-	private Item item;
+public class AgedBrie extends QualityUpdatable {
 
 	public AgedBrie(Item item) {
-		this.item = item;
+		super(item);
 	}
 
+	@Override
 	public void updateQuality() {
 		if (item.quality < 50) {
 			item.quality = item.quality + 1;

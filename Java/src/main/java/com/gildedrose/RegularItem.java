@@ -1,13 +1,12 @@
 package com.gildedrose;
 
-public class RegularItem {
-
-	private Item item;
+public class RegularItem extends QualityUpdatable {
 
 	public RegularItem(Item item) {
-		this.item = item;
+		super(item);
 	}
 
+	@Override
 	public void updateQuality() {
 		if (item.quality > 0) {
 			item.quality = item.quality - 1;

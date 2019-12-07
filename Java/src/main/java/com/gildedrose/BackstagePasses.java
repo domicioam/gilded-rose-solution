@@ -1,13 +1,12 @@
 package com.gildedrose;
 
-public class BackstagePasses {
-
-	private Item item;
+public class BackstagePasses extends QualityUpdatable {
 
 	public BackstagePasses(Item item) {
-		this.item = item;
+		super(item);
 	}
 
+	@Override
 	public void updateQuality() {
 		item.quality = item.quality + 1;
 		if (item.sellIn < 11) {

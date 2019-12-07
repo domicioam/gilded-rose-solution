@@ -9,7 +9,7 @@ class GildedRoseTest {
     @Test
     void shouldDecreaseQualityTwiceWhenSellDateHasPassed() {
     	Item item = new Item("Sword", 0, 10);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new RegularItem(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(8, item.quality);
@@ -19,7 +19,7 @@ class GildedRoseTest {
     @Test
     void shouldNotHaveNegativeQualityWhenRegularItem() {
     	Item item = new Item("Sword", 0, 0);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new RegularItem(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(0, item.quality);
@@ -29,7 +29,7 @@ class GildedRoseTest {
     @Test
     void shouldIncreaseAgedBrieQualityOnceWhenSellDateHasNotPassed() {
     	Item item = new Item("Aged Brie", 1, 10);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new AgedBrie(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(11, item.quality);
@@ -39,7 +39,7 @@ class GildedRoseTest {
     @Test
     void shouldIncreaseAgedBrieQualityTwiceWhenSellDateHasPassed() {
     	Item item = new Item("Aged Brie", 0, 10);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new AgedBrie(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(12, item.quality);
@@ -49,7 +49,7 @@ class GildedRoseTest {
     @Test
     void shouldNotIncreaseAgedBrieQualityWhenQualityAtMax() {
     	Item item = new Item("Aged Brie", 1, 50);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new AgedBrie(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(50, item.quality);
@@ -59,7 +59,7 @@ class GildedRoseTest {
     @Test
     void shouldNotDecreaseQualityOrSellInWhenSulfuras() {
     	Item item = new Item("Sulfuras, Hand of Ragnaros", 1, 50);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new Sulfuras(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(50, item.quality);
@@ -69,7 +69,7 @@ class GildedRoseTest {
     @Test
     void shouldIncreaseQualityTwiceWhenBackstackPassesAndSellInLessOrEqualTenDays() {
     	Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 48);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new BackstagePasses(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(50, item.quality);
@@ -79,7 +79,7 @@ class GildedRoseTest {
     @Test
     void shouldIncreaseQualityThreeTimesWhenBackstackPassesAndSellInLessOrEqualFiveDays() {
     	Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 47);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new BackstagePasses(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(50, item.quality);
@@ -89,7 +89,7 @@ class GildedRoseTest {
     @Test
     void shouldDropQualityToZeroWhenBackstackPassesAndSellInLessOrEqualZeroDays() {
     	Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 47);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new BackstagePasses(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(0, item.quality);
@@ -99,7 +99,7 @@ class GildedRoseTest {
     @Test
     void shouldNotIncreaseQualityAboveFiftyWhenBackstackPassesAndSellInLessOrEqualTenDays() {
     	Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new BackstagePasses(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(50, item.quality);
@@ -109,7 +109,7 @@ class GildedRoseTest {
     @Test
     void shouldNotIncreaseQualityAboveFiftyWhenBackstackPassesAndSellInLGreaterThanTenDays() {
     	Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 49);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new BackstagePasses(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(50, item.quality);
@@ -119,7 +119,7 @@ class GildedRoseTest {
     @Test
     void shouldNotSulfurasQualityWhenSellInHasPassed() {
     	Item item = new Item("Sulfuras, Hand of Ragnaros", -1, 50);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new Sulfuras(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(50, item.quality);
@@ -129,7 +129,7 @@ class GildedRoseTest {
     @Test
     void foo() {
     	Item item = new Item("Aged Brie", -1, 49);
-    	Item[] items = { item };
+    	QualityUpdatable[] items = { new AgedBrie(item) };
     	GildedRose gildedRose = new GildedRose(items);
     	gildedRose.updateQuality();
     	assertEquals(50, item.quality);

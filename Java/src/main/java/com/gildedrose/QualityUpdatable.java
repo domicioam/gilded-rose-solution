@@ -9,5 +9,4 @@ public abstract class QualityUpdatable {
 	}
 
 	abstract void updateQuality();
-
 }
